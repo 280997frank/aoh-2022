@@ -1,0 +1,47 @@
+
+<krpano>
+
+
+	<addhs_settings  pin_cod="z123" 
+ 					 sound_close_click="true" 
+ 					 video_close_click="true" 
+ 					 youtube_close_click="true" 
+					 FIRSTXML="tour" 
+					 path="%SWFPATH%/" 
+					 action_list="'add_hotspot/plugins_l/actionSM.html'" 
+ 		   		/>
+	
+	
+ <style name="pl_hs_add_hs"
+ 		keep="true"
+		enabled2="true"
+ 		visible2="true"
+ 		visible="false"
+ 		alpha="1"
+ 		alpha2="1"
+ 		capture="false"
+ 		handcursor="true"
+ 		zorder="0"
+ 		install_onclick="14"
+ 		fov_EL="90"
+ 		fillcolor="0xFF0000"
+ 		fillcolor2="0x0087B8"
+ 		fillalpha="0.50"
+ 		fillalpha2="0.00"
+ 		borderwidth="2"
+ 		borderwidth2="2"
+ 		bordercolor="0x55FF00"
+ 		bordercolor2="0x55FF00"
+ 		borderalpha="1.00"
+ 		borderalpha2="1.00"
+ 		onover="set_pol_2(get(name));"
+ 		onout="set_pol_1();"
+ 		ondown="ondown_pl_hs();"
+ 		blendmode="normal"
+	 />
+
+	 <!-- polygonal hotspot -->
+
+
+ 
+</krpano>

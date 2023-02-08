@@ -1,0 +1,329 @@
+<krpano version="1.20.7" title="Virtual Tour">
+
+	<!-- blur plugin -->
+	<plugin name="pp_blur" keep="true"
+		url="plugins/pp_blur.js"
+		enabled="true"
+		range="0.0"
+		linearrgb="false"
+		order="1"
+		phase="2"
+		/>
+	
+	<action name="popup" scope="private:POPUP" args="type, content, width, height, scrollbars, style "><![CDATA[
+		if(popup, break(); );
+		
+		addlayer('popup_bg', popup_bg);
+		set(popup_bg,
+			type=container,
+			align=lefttop, width=100%, height=100%,
+			zorder=99,
+			handcursor=false,
+			bgcapture=true,
+			capture=false,
+			bgcolor=0x1B1B1B, onloaded='tween(bgalpha,0.3,1.0);',	// optional: colorize the background
+			ondown='popup_close()'
+		);
+		
+
+		if(style == 'normal',
+			addlayer('popup', popup);
+			set(popup,
+				type=container,
+				parent='popup_bg',
+				width=calc(min(width,global.stagewidth*0.9)),
+				height=calc(min(height,global.stageheight*0.8)),
+				align=center,
+				//bgborder='1 0x555555 1',
+				//bgcolor=0x555555,
+				//bgalpha=0.1,
+				//bgshadow='0 10 20 0x000000 0.5',
+				bgcapture=true,
+				maskchildren=false,
+				capture=false,
+				handcursor=false,
+				alpha=0
+			);
+
+		  ,style == 'noborder',
+		  	addlayer('popup', popup);
+			set(popup,
+				type=container,
+				parent='popup_bg',
+				width=calc(min(width,global.stagewidth*0.9)),
+				height=calc(min(height,global.stageheight*0.8)),
+				align=center,
+				//bgborder='1 0x555555 1',
+				//bgcolor=0x555555,
+				//bgalpha=0.1,
+				//bgshadow='0 10 20 0x000000 0.5',
+				bgcapture=true,
+				maskchildren=false,
+				capture=true,
+				handcursor=false,
+				alpha=0
+			);
+
+			// optional: add a close button
+			addlayer('popup_close_x', closex);
+			set(closex,
+				url='Images/0_entrance/x.png',
+				parent='popup',
+				align=righttop,
+				edge=righttop,
+				x=20,
+				y=20,
+				scale=0.15,
+				zorder=99,
+				alpha=1,
+				onover='tween(alpha,1)',
+				onout='tween(alpha,0.25)',
+				ondown='tween(alpha,1)',
+				onup='tween(alpha,0.25)',
+				onclick='popup_close()'
+			);
+
+		  ,style == 'noborder2',
+		  	addlayer('popup', popup);
+			set(popup,
+				type=container,
+				parent='popup_bg',
+				width=calc(min(width,global.stagewidth*0.9)),
+				height=calc(min(height,global.stageheight*0.8)),
+				align=center,
+				//bgborder='1 0x555555 1',
+				//bgcolor=0x555555,
+				//bgalpha=0.1,
+				//bgshadow='0 10 20 0x000000 0.5',
+				bgcapture=true,
+				maskchildren=false,
+				capture=true,
+				handcursor=false,
+				alpha=0
+			);
+
+			// optional: add a close button
+			addlayer('popup_close_x', closex);
+			set(closex,
+				url='Images/1_cheeseroom/x.png',
+				parent='popup',
+				align=righttop,
+				edge=righttop,
+				x=20,
+				y=20,
+				scale=0.15,
+				zorder=99,
+				alpha=1,
+				onover='tween(alpha,1)',
+				onout='tween(alpha,0.25)',
+				ondown='tween(alpha,1)',
+				onup='tween(alpha,0.25)',
+				onclick='popup_close()'
+			);
+
+		  ,style == 'scrollimg',
+		  	addlayer('popup', popup);
+			set(popup,
+				type=container,
+				parent='popup_bg',
+				width=calc(min(width,global.stagewidth*0.9)),
+				height=calc(min(height,global.stageheight*0.8)),
+				align=center,
+				//bgborder='1 0x555555 1',
+				//bgcolor=0x555555,
+				//bgalpha=0.1,
+				//bgshadow='0 10 20 0x000000 0.5',
+				bgcapture=true,
+				maskchildren=false,
+				capture=true,
+				handcursor=false,
+				alpha=0
+			);
+
+			// optional: add a close button
+			addlayer('popup_close_x', closex);
+			set(closex,
+				url='Images/1_cheeseroom/x.png',
+				parent='popup',
+				align=righttop,
+				edge=center,
+				x=15,
+				y=15,
+				scale=0.1,
+				zorder=98,
+				alpha=1,
+				onover='tween(alpha,1)',
+				onout='tween(alpha,0.25)',
+				ondown='tween(alpha,1)',
+				onup='tween(alpha,0.25)',
+				onclick='popup_close()'
+			);
+
+		);
+
+
+		if(type == 'html',
+			copy(popup.datacontent, content);
+			calc(popup.onloaded, 'add_html_code(get(datacontent),'+scrollbars+');');
+
+		  ,type == 'iframe',
+			calc(popup.datacontent, '<iframe style="position:absolute;width:100%;height:100%;top:0px;left:0px;" src="'+content+'" frameborder="0" scrolling="auto" allowfullscreen></iframe>');
+			calc(popup.onloaded, 'add_html_code(get(datacontent),'+scrollbars+');');
+
+		  ,type == 'image',
+		 	set(popup,
+		 		bgcolor=0xFFFFFF,
+		 		bgalpha=0,
+		 	);
+			addlayer("popup_image", img);
+			set(img,
+				url=get(content),
+				handcursor=false,
+				align=center,
+				width=-20, height=-20,
+				parent=get(popup.name),
+				onloaded='popup_imageloaded()'
+			);
+
+			,type == 'gifimage',
+		 	set(popup,
+		 		bgcolor=0xFFFFFF,
+		 		bgalpha=0,
+		 	);
+			addlayer("popup_image", img);
+			set(img,
+				url=get(content),
+				align=center,
+				edge=center,
+				x=0,
+				y=190,
+				zorder=98,
+				capture=false,
+				width=150, height=124,
+				parent=get(popup.name),
+				onloaded ='popup_imageloaded()'
+				ondown='popup_close()'
+			);
+
+			,type == 'textmessage',
+		 	set(popup,
+		 		bgcolor=0xFFFFFF,
+		 		bgalpha=0,
+		 	);
+			addlayer("popup_image2", img);
+			set(img,
+				url=get(content),
+				align=center,
+				edge=top,
+				x=0,
+				y=250,
+				zorder=97,
+				capture=false,
+				width= 300,
+				height= 54,
+				parent=get(popup.name),
+				onloaded='popup_imageloaded()'
+				ondown='popup_close()'
+			);
+
+		  ,type == 'imagestart',
+		 	set(popup,
+		 		bgcolor=0xFFFFFF,
+		 		bgalpha=0,
+		 	);
+			addlayer("popup_image", img);
+			set(img,
+				url=get(content),
+				align=center,
+				edge=top,
+				x=0,
+				y=150,
+				capture=false,
+				width=width, height=height,
+				parent=get(popup.name),
+				onloaded='popup_imageloaded()'
+				ondown='popup_close()'
+			);
+		);
+		/*
+		if(style == 'noborder',
+			tween(global.plugin[pp_blur].range, 10.0);
+		  ,style == 'noborder2',
+			tween(global.plugin[pp_blur].range, 10.0);
+		  ,style == 'scrollimg',
+		  	tween(global.plugin[pp_blur].range, 10.0);
+		);
+		*/
+
+		tween(global.plugin[pp_blur].range, 10.0);
+
+		delayedcall(0.2, tween(global.layer[popup].alpha, 1.0); );
+
+		set(global.events[popup].onclick, popup_close() );
+		set(global.events[popup].onremovepano, popup_close() );
+	]]></action>
+	
+	<action name="popup_close">
+		set(global.plugin[popup_bg].enabled, false);
+		set(global.events[popup].name, null);
+		tween(global.plugin[pp_blur].range, 0.0);
+		tween(global.layer[popup_bg].bgalpha, 0.0, 0.25);
+		tween(global.layer[popup].alpha, 0.0, 0.25, default,
+			removelayer('popup_bg', true);
+			scope(private:POPUP, delete(popup); );
+		);
+	</action>
+
+	<action name="popup_imageloaded" scope="private:POPUP">
+		calc(imgw, caller.imagewidth + 20 );
+		calc(imgh, caller.imageheight + 20 );
+		calc(maxw, global.stagewidth*0.9);
+		calc(maxh, global.stageheight*0.8);
+		if(imgw GT maxw,
+			calc(imgh, round(imgh * maxw / imgw));
+			copy(imgw, maxw);
+		);
+		if(imgh GT maxh,
+			calc(imgw, round(imgw * maxh / imgh));
+			copy(imgh, maxh);
+		);
+
+		set(global.layer[get(caller.parent)], width=get(imgw), height=get(imgh) );
+	</action>
+
+	<!-- arguments: 1=htmlcode, 2=scrollbars -->
+	<action name="add_html_code" type="Javascript"><![CDATA[
+		var div = document.createElement("div");
+
+		// basic styles to fit into the layer size and allow scrolling:
+		div.style.width = "100%";
+		div.style.height = "100%";
+		div.style.boxSizing = "border-box";
+		div.style.overflow = args[2] == "true" ? "auto" : "hidden";
+
+		// allow text selection (optional):
+		div.style.webkitUserSelect =
+		div.style.MozUserSelect =
+		div.style.msUserSelect =
+		div.style.userSelect = "text";
+
+		function stopPropagation(e){ e.stopPropagation(); }
+		function preventDefault(e){ e.preventDefault(); }
+
+		// enable browsed-based mouse-wheel and touch-scrolling support:
+		div.addEventListener("wheel", stopPropagation, true);
+		div.addEventListener("mousewheel", stopPropagation, true);
+		div.addEventListener("DOMMouseScroll", stopPropagation, true);
+		div.addEventListener("touchstart", function(event){ if(krpano.device.ios && window.innerHeight == krpano.display.htmltarget.offsetHeight){ /* avoid the iOS 'overscrolling' for fullpage viewers */ var bs = document.body.parentNode.style; bs.position="fixed"; bs.top=0; bs.left=0; bs.right=0; bs.bottom=0; } krpano.control.preventTouchEvents = false; event.stopPropagation(); }, true);
+		div.addEventListener("touchend", function(event){ krpano.control.preventTouchEvents = true; event.stopPropagation(); }, true);
+		div.addEventListener("gesturestart", preventDefault, true);
+
+		// add the html code:
+		div.innerHTML = args[1];
+
+		// add the div to the layer element:
+		caller.sprite.appendChild(div);
+	]]></action>
+
+
+</krpano>

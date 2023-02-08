@@ -1,0 +1,952 @@
+﻿<krpano version="1.20.9" title="Virtual Tour">
+
+	<display autofullscreen="false" />
+	<include url="skin/vtourskin.xml" />
+	<include url="anihotspots/anihotspots.xml" />
+	<include url="popup.xml" />
+
+	<!-- <include url="add_hotspot/plugins_l/add_hotspot.xml" /> -->
+
+	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings maps="false"
+	               maps_type="google"
+	               maps_bing_api_key=""
+	               maps_google_api_key=""
+	               maps_zoombuttons="false"
+	               maps_loadonfirstuse="true"
+	               gyro="true"
+	               gyro_keeplookingdirection="false"
+	               webvr="true"
+	               webvr_keeplookingdirection="true"
+	               webvr_prev_next_hotspots="true"
+	               autotour="false"
+	               littleplanetintro="false"
+	               followmousecontrol="false"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="false"
+	               thumbs_text="false"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="false"
+	               tooltips_hotspots="false"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext=""
+	               layout_width="100%"
+	               layout_maxwidth="814"
+	               controlbar_width="-24"
+	               controlbar_height="40"
+	               controlbar_offset="20"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.no-fractionalscaling="10"
+	               controlbar_overlap.fractionalscaling="0"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x2D3E50"
+	               design_bgalpha="0.8"
+	               design_bgborder="0"
+	               design_bgroundedge="1"
+	               design_bgshadow="0 4 10 0x000000 0.3"
+	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="0"
+	               design_text_css="color:#FFFFFF; font-family:Arial;"
+	               design_text_shadow="1"
+	               />
+
+	<!--
+	    For an alternative skin design either change the <skin_settings> values
+	    from above or optionally include one of the predefined designs from below.
+	-->
+	<!-- <include url="skin/vtourskin_design_flat_light.xml"  /> -->
+	<!-- <include url="skin/vtourskin_design_glass.xml"       /> -->
+	<!-- <include url="skin/vtourskin_design_ultra_light.xml" /> -->
+	<!-- <include url="skin/vtourskin_design_117.xml"         /> -->
+	<!-- <include url="skin/vtourskin_design_117round.xml"    /> -->
+	<!-- <include url="skin/vtourskin_design_black.xml"       /> -->
+
+
+	<!-- startup action - load the first scene -->
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		if(startactions !== null, startactions());
+		skin_hideskin(instant);
+		popup('gifimage', '%CURRENTXML%/images/message2.gif', 100, 100, true, 'normal');
+	</action>
+
+	<!-- <events onloadcomplete="set(panoready,true); finalcheck();" />
+
+	<action name="finalcheck">
+		set(allready,false);
+		if(panoready, set(allready,true));
+		if(allready, startpanoshowing());
+	</action>
+
+	<action name="startpanoshowing">
+		popup('gifimage', '%CURRENTXML%/images/message2.gif', 100, 100, true, 'normal');
+	</action> -->
+
+
+	<!-- ARMY FORMATION -->
+	<scene name="scene_formation" title="formation" onstart="" thumburl="panos/formation.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="-5.0" fovtype="MFOV" fov="137" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="range" vlookatmin="-60" vlookatmax="60"/>
+
+		<preview url="panos/formation.tiles/preview.jpg" />
+
+		<image>
+			<sphere url="panos/formation.tiles/l%l/%0v/l%l_%0v_%0h.jpg" multires="512,1536x768,3072x1536,6144x3072" />
+		</image>
+
+		<hotspot name="spotanim_sticker"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="-14.2479" atv="29.5259" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/stickers'));"
+				/>
+
+
+		<hotspot name="spot_sticker"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="0.1979" atv="29.2692" width="350" height="80" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_saf_ammunition"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="-141.4744" atv="-11.4872" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/safac'));"
+				/>
+		<hotspot name="spot_saf_ammunition"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="-119.384" atv="-10.0945" width="632.56" height="90" rx="-10.8" ry="-17.7" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_singapore_combate"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="-110.987" atv="-34.2258" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/combat-engineers'));"
+				/>
+		<hotspot name="spot_singapore_combate"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="-91.0745" atv="-29.2737" width="450" height="70" rx="-27.6" ry="-31.2" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_maintenance_enginering_support"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="-87.969" atv="-6.8401" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/arm-engineers'));"
+				/>
+		<hotspot name="spot_maintenance_enginering_support"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="-69.7332" atv="-5.9508" width="543.24" height="46.32" rx="-7.8" ry="-9.9" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_army_intelligence"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="-65.7246" atv="-22.7515" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/intelligence'));"
+				/>
+		<hotspot name="spot_army_intelligence"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="-53.2156" atv="-20.8542" width="365.1" height="46.32" rx="-18" ry="-25.8" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_guards"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="-43.9911" atv="-4.419" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/guards'));"
+				/>
+		<hotspot name="spot_guards"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="true"
+				zorder="1"
+				alpha="0.0"
+				ath="-37.1791" atv="-4.4431" width="200" height="40" rx="-5.1" ry="-2.1" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_saf_military"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="-35.4725" atv="-18.5005" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/military-police'));"
+				/>
+		<hotspot name="spot_saf_military"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="-22.0177" atv="-17.644" width="400" height="40" rx="-8.1" ry="-2.7" rz="1.2" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_infantry"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="-13.549" atv="-3.9112" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/infantry'));"
+				/>
+		<hotspot name="spot_infantry"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="-7.3401" atv="-3.9379" width="130" height="35" rx="3" ry="-3.9" rz="-1.85" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_suply"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="0.2722" atv="-16.6232" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/supply'));"
+				/>
+		<hotspot name="spot_suply"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="7.6919" atv="-16.6317" width="130" height="35" rx="3" ry="-3.9" rz="-1.85" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_armour"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="17.3407" atv="-3.8328" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/armour'));"
+				/>
+		<hotspot name="spot_armour"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="23.4325" atv="-4.0863" width="130" height="35" rx="-4.8" ry="4.2" rz="-2.5" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_army_medical_service"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="26.0949" atv="-17.5046" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/medical-services'));"
+				/>
+		<hotspot name="spot_army_medical_service"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="36.3048" atv="-18.3229" width="300" height="35" rx="-15.3" ry="19.8" rz="-2.5" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_artillary"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="48.0068" atv="-4.5819" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/artillery'));"
+				/>
+		<hotspot name="spot_artillary"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="55.3268" atv="-5.0185" width="158.4" height="35" rx="-4.8" ry="4.2" rz="-3.35" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_signal"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="63.5741" atv="-22.1683" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/signals'));"
+				/>
+		<hotspot name="spot_signal"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="72.0661" atv="-23.8513" width="200" height="50" rx="-26.1" ry="23.1" rz="-3.35" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_transport"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="85.3355" atv="-6.5964" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/transport'));"
+				/>
+		<hotspot name="spot_transport"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="94.4346" atv="-7.3866" width="250" height="50" rx="-12.9" ry="6.9" rz="-3.85" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_commandos"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="108.8546" atv="-33.1237" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/commandos'));"
+				/>
+		<hotspot name="spot_commandos"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="119.8361" atv="-35.8709" width="300" height="70" rx="-31.8" ry="24.6" rz="-3.85" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+
+		<hotspot name="spotanim_perscom"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="144.5075" atv="-11.6575" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/perscom'));"
+				/>
+		<hotspot name="spot_perscom"
+				url="images/button.png"
+				zoom="true"
+				distorted ="true"
+				capture="false"
+				zorder="1"
+				alpha="0.0"
+				ath="159.5335" atv="-12.2832" width="400" height="80" rx="-5.1" ry="0.6" rz="-3.15" rotate="1.65" scale="0.5" edge="center"
+				onclick=""
+				/>
+
+		<hotspot name="spotanim_sav_volunteer"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="-176.4526" atv="-43.929" width="128" height="128" scale="0.6" edge="center"
+				onclick="js(window.changePage('/our-army-formations/safvc'));"
+				/>
+
+	</scene>
+
+
+	<!-- ARMY Technology -->
+	<scene name="scene_Technology" title="Technology" onstart="" thumburl="panos/Technology.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="125" maxpixelzoom="2.0" fovmin="70" fovmax="200" limitview="range" vlookatmin="-65" vlookatmax="65"  hlookatmin="-167" hlookatmax="167"/>
+
+		<preview url="panos/Technology.tiles/preview.jpg" />
+
+		<image>
+			<sphere url="panos/Technology.tiles/l%l/%0v/l%l_%0v_%0h.jpg" multires="512,1536x768,3072x1536,6144x3072" />
+		</image>
+
+		<hotspot name="spotanim_01"
+			url="images/hotspot.gif"
+			zoom="true"
+			zorder="1"
+			renderer="css3d"
+			ath="-65.2406" atv="24.1663" width="128" height="128" edge="center"
+			onclick="js(window.changePage('/technology-zone/detail?id=01'));"
+		/>
+		<hotspot name="Frame_1"
+			url="images/label/Frame_1.png"
+			zoom="true"
+			distorted ="true"
+			zorder="1"
+			capture="false"
+			alpha="0.8"
+			ath="-65.9656" atv="32.5381" width="207" height="56" edge="center"
+			onclick=""
+		/>
+
+		<hotspot name="spotanim_02"
+			url="images/hotspot.gif"
+			zoom="true"
+			zorder="1"
+			renderer="css3d"
+			ath="64.7145" atv="24.3643" width="128" height="128" edge="center"
+			onclick="js(window.changePage('/technology-zone/detail?id=02'));"
+		/>
+		<hotspot name="Frame_2"
+			url="images/label/Frame_2.png"
+			zoom="true"
+			distorted ="true"
+			zorder="1"
+			capture="false"
+			alpha="0.8"
+			ath="66.6056" atv="32.0776" width="231" height="56" scale="0.8" edge="center"
+			onclick=""
+		/>
+
+		<hotspot name="spotanim_03"
+			url="images/hotspot.gif"
+			zoom="true"
+			zorder="1"
+			renderer="css3d"
+			ath="119.1586" atv="0.2136" width="128" height="128" scale="0.75" edge="center"
+			onclick="js(window.changePage('/technology-zone/detail?id=03'));"
+		/>
+		<hotspot name="Frame_3"
+			url="images/label/Frame_3.png"
+			zoom="true"
+			distorted ="true"
+			zorder="1"
+			capture="false"
+			alpha="0.8"
+			ath="118.7952" atv="6.1664" width="153" height="56" scale="0.8" edge="center"
+			onclick=""
+		/>
+
+		<hotspot name="spotanim_04"
+			url="images/hotspot.gif"
+			zoom="true"
+			zorder="1"
+			renderer="css3d"
+			ath="148.133" atv="-0.155" width="128" height="128" scale="0.6" edge="center"
+			onclick="js(window.changePage('/technology-zone/detail?id=04'));"
+		/>
+		<hotspot name="Frame_4"
+			url="images/label/Frame_4.png"
+			zoom="true"
+			distorted ="true"
+			zorder="1"
+			capture="false"
+			alpha="0.8"
+			ath="147.1381" atv="5.5365" width="184" height="56" scale="0.8" edge="center"
+			onclick=""
+		/>
+
+		<hotspot name="spotanim_05"
+			url="images/hotspot.gif"
+			zoom="true"
+			zorder="1"
+			renderer="css3d"
+			ath="-147.708" atv="0.1217" width="128" height="128" scale="0.6" edge="center"
+			onclick="js(window.changePage('/technology-zone/detail?id=05'));"
+		/>
+		<hotspot name="Frame_5"
+			url="images/label/Frame_5.png"
+			zoom="true"
+			distorted ="true"
+			zorder="1"
+			capture="false"
+			alpha="0.8"
+			ath="-146.5567" atv="5.0951" width="232" height="56" rx="-0.3" ry="-6" scale="0.8" edge="center"
+			onclick=""
+		/>
+
+		<hotspot name="spotanim_06"
+			url="images/hotspot.gif"
+			zoom="true"
+			zorder="1"
+			renderer="css3d"
+			ath="-119.8295" atv="0.5118" width="128" height="128" scale="0.7" edge="center"
+			onclick="js(window.changePage('/technology-zone/detail?id=06'));"
+		/>
+		<hotspot name="Frame_6"
+			url="images/label/Frame_6.png"
+			zoom="true"
+			distorted ="true"
+			zorder="1"
+			capture="false"
+			alpha="0.8"
+			ath="-119.2158" atv="5.9857" width="203" height="56" scale="0.7" edge="center"
+			onclick=""
+		/>
+
+		<hotspot name="spotanim_07"
+			url="images/hotspot.gif"
+			zoom="true"
+			zorder="1"
+			renderer="css3d"
+			ath="-95.2508" atv="22.27" width="128" height="128" scale="0.85" edge="center"
+			onclick="js(window.changePage('/technology-zone/detail?id=07'));"
+		/>
+		<hotspot name="Frame_7"
+			url="images/label/Frame_7.png"
+			zoom="true"
+			distorted ="true"
+			zorder="1"
+			capture="false"
+			alpha="0.8"
+			ath="-94.1536" atv="30.278" width="171" height="56" edge="center"
+			onclick=""
+		/>
+
+		<hotspot name="spotanim_08"
+			url="images/hotspot.gif"
+			zoom="true"
+			zorder="1"
+			renderer="css3d"
+			ath="93.6253" atv="21.8691" width="128" height="128" edge="center"
+			onclick="js(window.changePage('/technology-zone/detail?id=08'));"
+		/>
+		<hotspot name="Frame_8"
+			url="images/label/Frame_8.png"
+			zoom="true"
+			distorted ="true"
+			zorder="1"
+			capture="false"
+			alpha="0.8"
+			ath="93.6074" atv="29.5715" width="289" height="56" rx="2.4" ry="-3.3" scale="0.8" edge="center"
+			onclick=""
+		/>
+
+
+		<!-- <hotspot name="spotanim_09"
+			url="images/hotspot.gif"
+			zoom="true"
+			zorder="1"
+			renderer="css3d"
+			ath="-139.3425" atv="28.7535" width="128" height="128" scale="0.85" edge="center"
+			onclick="js(window.changePage('/technology-zone/detail?id=09'));"
+		/>
+		<hotspot name="spotanim_10"
+			url="images/hotspot.gif"
+			zoom="true"
+			zorder="1"
+			renderer="css3d"
+			ath="-171.3781" atv="33.887" width="128" height="128" scale="1" edge="center"
+			onclick="js(window.changePage('/technology-zone/detail?id=10'));"
+		/> -->
+	</scene>
+
+	<scene name="scene_zone3" title="zone3" onstart="" thumburl="panos/zone3.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="5.0" vlookat="0.0" fovtype="MFOV" fov="100" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="range" vlookatmin="-52" vlookatmax="52"  hlookatmin="-72" hlookatmax="57"/>
+
+		<preview url="panos/zone3.tiles/preview.jpg" />
+
+		<image>
+			<sphere url="panos/zone3.tiles/l%l/%0v/l%l_%0v_%0h.jpg" multires="512,1536x768,3072x1536,6144x3072" />
+		</image>
+
+		<hotspot name="spotanim_pledge_suport"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="-12.9028" atv="12.2676" width="128" height="128" scale="0.4" edge="center"
+				onclick="js(window.openPledgeModal());"
+				/>
+
+		<hotspot name="label_pledge_suport"
+				url="images/label/pledge.png"
+				zoom="true"
+				zorder="1"
+				distorted ="true"
+				capture="false"
+				ath="-27.8784" atv="11.802" width="752" height="90" rx="0.3" ry="12.9" rz="3.2" scale="0.3" edge="center"
+				onclick="js(window.openPledgeModal());"
+				/>
+
+
+		<hotspot name="spotanim_capture_your_moment"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				renderer="css3d"
+				ath="36.2369" atv="4.5928"
+				width="128" height="128" scale="0.3" edge="center"
+				onclick="js(window.changePage('/ns55-showcase/capture-your-ns-moments'));" 
+				/>
+
+		<hotspot name="label_capture_your_moment"
+				url="images/label/capture.png"
+				zoom="true"
+				zorder="1"
+				distorted ="true"
+				capture="false"
+				ath="45.1164" atv="4.3971" width="660" height="100" rx="4.5" ry="-23.4" scale="0.2" edge="center"
+				onclick="js(window.changePage('/ns55-showcase/capture-your-ns-moments'));" 
+				/>
+
+	</scene>
+
+
+
+	<!-- ARMY PLATFORM -->
+	<scene name="scene_garage" title="garage" onstart="" thumburl="panos/garage.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<control bouncinglimits="calc:image.cube ? true : false" />
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="range" vlookatmin="-60" vlookatmax="60"/>
+
+		<preview url="panos/garage.tiles/preview.jpg" />
+
+		<image>
+			<sphere url="panos/garage.tiles/l%l/%0v/l%l_%0v_%0h.jpg" multires="512,1536x768,3072x1536,6144x3072" />
+		</image>
+
+		<hotspot name="spot_camera"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				alpha="0"
+				ath="0.5453" atv="-8.0323" width="128" height="128" scale="0.5" edge="center"
+				onclick="js(onClickSpot('photobooth'));"
+				/>
+
+		<hotspot name="spot_facebook"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				alpha="0"
+				ath="0.5441" atv="1.2819" width="128" height="128" scale="0.35" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/gallery'));"
+		/>
+
+		<hotspot name="spot_ig"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				alpha="0"
+				ath="0.4832" atv="6.2521" width="128" height="128" scale="0.35" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/gallery'));"
+		/>
+
+		<hotspot name="spot_between"
+				url="images/hotspot.gif"
+				zoom="true"
+				zorder="1"
+				alpha="0"
+				ath="0.5438" atv="-3.4655" width="128" height="128" scale="0.35" edge="center"
+				onclick=""
+				/>
+
+
+		<!-- spot vehicle -->
+		<hotspot name="spot_agilis"
+				url="images/label/agilis.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="-82.1689" atv="-18.0795" width="176" height="64" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/agilis'));"
+				/>
+
+		<hotspot name="spot_tpq-53"
+				url="images/label/tpq.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="-64.859" atv="-18.1115" width="192" height="64"  scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/tpq-53'));"
+				/>
+
+		<hotspot name="spot_l2-aev"
+				 url="images/label/l2aev.png"
+				 zoom="true"
+				 distorted="true"
+				 zorder="1"
+				 alpha="1"
+				 ath="-47.9112" atv="16.9505" width="142" height="64" scale="0.65" edge="center"
+				 onclick="js(window.changePage('/our-army-platforms/leopard-2-armoured-engineer-vehicle-(l2aev)'));"
+				/>
+
+		<hotspot name="spot_belrex-mortar"
+				url="images/label/belrex-mortar.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="-29.2618" atv="-16.9421" width="234" height="104" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/belrex-mortar-variant'));"
+				/>
+
+		<hotspot name="spot-wrv"
+				url="images/label/wrv.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="-12.876" atv="-15.6751" width="148" height="64" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/wheeled-recovery-vehicle'));"
+				/>
+
+		<hotspot name="spot-D-tcs"
+				url="images/label/d-tcs.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="15.0703" atv="-14.8468" width="164" height="64" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/digitised-trunk-communications-system-(d-tcs)'));"
+				/>
+
+        <hotspot name="spot-fh-2000"
+                 url="images/label/prv.png"
+                 zoom="true"
+                 distorted="true"
+                 zorder="1"
+                 alpha="1"
+                 ath="30.8209" atv="-15.1273" width="206" height="64" scale="0.65" edge="center"
+                 onclick="js(window.changePage('/our-army-platforms/peacekeeper-protected-response-vehicle'));"
+        />
+
+		<hotspot name="spot-bronco-recce"
+				url="images/label/bronco-recce.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="48.773" atv="-15.7247" width="218" height="104" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/bronco-all-terrain-tracked-carrier'));"
+				/>
+
+		<hotspot name="spot-mars"
+				url="images/label/mars.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="65.4525" atv="-16.4933" width="164" height="64" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/mobile-adjustable-ramp-system-(mars)'));"
+				/>
+
+		<hotspot name="spot-lsv-mk2"
+				url="images/label/lsv-mk2.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="83.9405" atv="-17.468" width="220" height="64" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/light-strike-vehicle-mark-ii'));"
+				/>
+
+
+		<hotspot name="spot-ah-64D"
+				url="images/label/ah-26.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="-125.6271" atv="28.635" width="206" height="64" rx="21.3" ry="1.5" rz="6.35" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/ah-64d-apache-longbow-helicopter'));"
+				/>
+
+		<hotspot name="spot-belrex-bcs"
+				url="images/label/belrex-bcs.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="-83.0457" atv="18.7515" width="286" height="64" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/belrex-battalion-casualty-station-variant-(bcs)'));"
+				/>
+
+		<hotspot name="spot-hrv"
+				url="images/label/hrv.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="-64.0338" atv="17.8115" width="140" height="64" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/hunter-armour-recovery-vehicle'));"
+				/>
+
+		<hotspot name="spot-mss"
+				url="images/label/mss.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="-47.6149" atv="-17.285" width="182" height="64"  scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/mobile-swab-station'));"
+				/>
+
+		<hotspot name="spot-trailblazer"
+				url="images/label/trailblaizer.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="-30.8505" atv="16.1772" width="286" height="64" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/trailblazer'));"
+				/>
+
+		<hotspot name="spot-himars"
+				url="images/label/himars.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="-11.7633" atv="15.6963" width="202" height="64" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/himars'));"
+				/>
+
+		<hotspot name="bionix-i"
+				 url="images/label/bionix-i.png"
+				 zoom="true"
+				 distorted="true"
+				 zorder="1"
+				 alpha="1"
+				 ath="14.6135" atv="15.5093" width="136" height="64" scale="0.65" edge="center"
+				 onclick="js(window.changePage('/our-army-platforms/bionix-2mt'));"
+		/>
+
+        <hotspot name="fh-2000"
+                 url="images/label/fh-2000.png"
+                 zoom="true"
+                 distorted="true"
+                 zorder="1"
+                 alpha="1"
+                 ath="29.7932" atv="15.8234" width="228" height="64" scale="0.65" edge="center"
+                 onclick="js(window.changePage('/our-army-platforms/fh2000'));"
+        />
+
+		<hotspot name="spot-hunter"
+				url="images/label/hunter.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="47.3503" atv="16.1054" width="206" height="64" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/hunter'));"
+				/>
+
+		<hotspot name="spot-terrex"
+				url="images/label/terrex.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="64.6489" atv="16.8317" width="196" height="64" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/terrex-infantry-carrier-vehicle'));"
+				/>
+
+		<hotspot name="spot-l2sg"
+				url="images/label/l2sg.png"
+				zoom="true"
+				distorted="true"
+				zorder="1"
+				alpha="1"
+				ath="82.9355" atv="17.6405" width="154" height="64" scale="0.65" edge="center"
+				onclick="js(window.changePage('/our-army-platforms/leopard-2sg'));"
+				/>
+
+	</scene>
+
+
+
+</krpano>

@@ -1,0 +1,14 @@
+[
+  {
+    "origin": [
+      "https://aoh-2022.netlify.app",
+      "http://localhost:3000",
+      "https://aoh22.sg",
+      "https://www.aoh22.sg",
+      "https://staging.aoh22.sg",
+      "https://loadtest.aoh22.sg"
+    ],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]
